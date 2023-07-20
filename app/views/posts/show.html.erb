@@ -1,0 +1,39 @@
+<%
+=begin%>
+ <h1>Post</h1>
+
+<p>Title: <%= @post.title %></p>
+<p>Content: <%= @post.content %></p> 
+<%
+=end%>
+
+<% if @post.size == 0 %>  
+  <% if current_user.role == "trainer" %>
+    <p>Please create your first post</p><br><%= link_to "Create New Post", new_trainer_post_path(@trainer) %>
+    <%= link_to 'Back to Profile', trainer_path(@trainer) %>
+  <% else %>
+    <p>This trainer currently has no post.</p><br>
+    <%= link_to 'Back to Trainers', trainers_path %>
+    <%# alert: 'Trainer not found.' %>
+  <% end %>
+
+<% else  %>
+  <ul>
+  <% if current_user.role == "trainer" %>
+    <% @post.each do |post| %>
+      <li><p>Title: <%= post.title %></p></il>
+      <li><p>Content: <%= post.content %></p></li>
+    <!-- Add other attributes specific to Trainer model -->
+    <% end %>
+    <%= link_to 'Back to Profile', trainer_path(@trainer) %>
+  <% else %>
+    <% @post.each do |post| %>
+      <li><p>Title: <%= post.title %></p></il>
+      <li><p>Content: <%= post.content %></p></li>
+    <!-- Add other attributes specific to Trainer model -->
+    <% end %>
+    <%= link_to 'Back to Trainers', trainers_path %>
+  </ul>
+  <% end %>
+<% end %>
+

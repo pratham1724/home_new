@@ -1,2 +1,32 @@
-<h1>Trainers#show</h1>
-<%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
+<h2>Welcome, I am <%= @trainer.name.capitalize %> </h2>
+
+<p>I am <%= @trainer.age %> years old.</p>
+<p>Here you can contact me:-<br><li><%= @trainer.phone_number %></li><br><li><%= @trainer.user.email %></li></p>
+<%= link_to 'My Posts', trainer_post_path(@trainer) %>
+
+<%
+=begin%>
+ <p>Name: <%= @trainer.name %></p>
+<p>Age: <%= @trainer.age %></p>
+<p>Phone Number: <%= @trainer.phone_number %></p>
+<p>Email: <%= @trainer.user.email %></p> 
+<%
+=end%>
+<!-- Add other attributes specific to Trainer model -->
+<% if current_user.role == "client" %>
+
+ <%# if current_user == @trainer.user %>
+    <%#= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
+  <%# end %> 
+
+  <%= link_to "Back to Feeds", trainers_path %><br>
+<% else %>
+
+ <%# if current_user == @trainer.user %> 
+
+  <%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
+  <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
+  <%# end %>
+<% end %>
+
+
