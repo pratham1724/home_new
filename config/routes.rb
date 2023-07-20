@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  root to: "homes#index"
   get 'appointments/new'
   get 'appointments/create'
   get 'posts/new'
   get 'posts/create'
   get 'posts/show'
-  root to: "homes#index"
+  
   devise_for :users
 
   resources :clients
@@ -21,6 +22,8 @@ Rails.application.routes.draw do
   resources :appointments, only: [] do
     member do
       get :confirm
+      delete :reject
+      delete :cancel
     end
   end
   delete '/trainers/sign_out', to: 'devise/sessions#destroy', as: :trainers_sign_out

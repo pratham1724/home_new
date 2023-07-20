@@ -1,2 +1,8 @@
-<h1>Clients#show</h1>
-<p>Find me in app/views/clients/show.html.erb</p>
+<% if current_user.client? %>
+<% @client.appointments.each do |appointment| %>
+  <% unless appointment.confirmed? %>
+    <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %>
+    <%= link_to "Cancel Appointment", cancel_appointment_path(appointment), method: :delete, data: { confirm: "Are you sure you want to cancel this appointment?" } %>
+  <% end %>
+<% end %>
+<% end %>

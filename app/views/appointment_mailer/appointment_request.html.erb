@@ -1,0 +1,16 @@
+<p>Hello <%= @trainer.name %>,</p>
+
+<p>You have received an appointment request from <%= @client.name %> (<%= @client_user.email %>). Please confirm the appointment.</p>
+
+<p>Trainer: <%= @trainer.name %></p>
+<p>Email: <%= @trainer_user.email %></p>
+<p>Phone Number: <%= @trainer.phone_number %></p>
+
+<p>Click the link below to confirm the appointment:</p>
+<p><%= link_to 'Confirm Appointment', confirm_appointment_url(@appointment) %></p>
+
+<p>Regards,</p>
+<p>Your App Team</p>
+
+
+
