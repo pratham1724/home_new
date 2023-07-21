@@ -1,2 +1,31 @@
-<h1>Trainers#new</h1>
-<p>Find me in app/views/trainers/new.html.erb</p>
+<h1>Please Create Your Trainer Profile</h1>
+<%= form_with model: @trainer do |t| %>
+  <div>
+    <%= t.label :Name %>
+    <%= t.text_field :name %>
+  </div>
+
+  <div>
+    <%= t.label :Age %>
+    <%= t.text_field :age %>
+  </div>
+
+  <div>
+    <%= t.label "Phone Number" %>
+    <%= t.text_field :phone_number %>
+  </div>
+
+  <div>
+    <%= t.label "Experience" %>
+    <%= t.text_field :experience %>
+  </div>
+
+  <div>
+    <%= t.label "Training Type" %>
+    <%= t.text_field :training_type %>
+  </div>
+
+  <div>
+    <%= t.submit %>
+  </div>
+<% end %>

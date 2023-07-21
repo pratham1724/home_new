@@ -31,15 +31,46 @@
 <%# end %>
 <% end %>
 
-<% if current_user.client? %>
-  <%= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
-<% end %>
+<%# if current_user.client? %>
+  <%# unless current_user.client.appointments.id? %>
+    <%#= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
+  <%# end %>
+  <%# elsif current_user.client.appointments.id? and current_user.client.appointments.confirmed.nil? %>
+    <%
+=begin%>
+ <p> Please Wait For The Trainer To Confirm Your Appointment. </p> 
+<%
+=end%>
+  <%# elsif current_user.client.appointments.id? and current_user.client.appointments.confirmed? %>
+    <%# button_to "Chat" %>
+<%# end %>
 
-<% if current_user.trainer? %>
-  <% @trainer.appointments.each do |appointment| %>
-    <% unless appointment.confirmed? %>
-      <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %>
-      <%= link_to "Reject Appointment", reject_appointment_path(appointment) %>
+<% if current_user.client? %>
+  <% unless current_user.client.appointments.exists?(trainer_id: @trainer.id) %>
+    <%= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
+  <% else %>
+    <% appointment = current_user.client.appointments.find_by(trainer_id: @trainer.id) %>
+    <% if appointment.present? %>
+      <% if appointment.confirmed.nil? %>
+        <p>Please wait for the trainer to confirm your appointment.</p>
+      <% elsif appointment.confirmed? %>
+        <%= button_to "Chat"%>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
+
+
+<% if current_user.present? %>
+  <% if current_user.trainer? %>
+    <% @trainer.appointments.each do |appointment| %>
+      <% unless appointment.confirmed? %>
+        <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %>
+        <%= link_to "Reject Appointment", reject_appointment_path(appointment) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+

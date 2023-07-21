@@ -5,6 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   enum role: {client: 0, trainer: 1}
 
-  has_one :trainer
-  has_one :client
+  has_one :trainer, dependent: :destroy
+  has_one :client, dependent: :destroy
 end

@@ -7,7 +7,7 @@ class TrainersController < ApplicationController
   end
 
   def show
-    @trainer = Trainer.find_by(params[:id])
+    @trainer = Trainer.find(params[:id])
 
     if @trainer.nil?
       # If no trainer found, handle the situation appropriately (e.g., redirect to the trainers index page)
@@ -16,9 +16,16 @@ class TrainersController < ApplicationController
   end
 
   def new
+    @trainer = current_user.build_trainer
   end
 
   def create
+    @trainer = current_user.build_trainer(trainer_params)
+    if @trainer.save
+      redirect_to trainer_path(current_user)
+    else
+      render :new
+    end
   end
 
   def edit
@@ -29,4 +36,9 @@ class TrainersController < ApplicationController
 
   def destroy
   end
+
+  def trainer_params
+    params.require(:trainer).permit(:name, :age, :phone_number, :experience, :training_type)
+  end
+
 end

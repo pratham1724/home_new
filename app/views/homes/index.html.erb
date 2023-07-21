@@ -1,7 +1,9 @@
-<% unless user_signed_in? %>
+<% if user_signed_in? == false %>
   <div>
     <p>Welcome to the Home Page</p>
     <%= link_to "Sign In", new_user_session_path, class: "btn btn-primary" %>
     <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %>
   </div>
+<%# elsif current_user.client.present? == false %>
+  <%# link_to "Create Your client Profile", new_client_path %>
 <% end %>

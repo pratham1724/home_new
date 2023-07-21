@@ -1,2 +1,22 @@
-<h1>Clients#new</h1>
-<p>Find me in app/views/clients/new.html.erb</p>
+<h1>Please Create Your Client Profile</h1>
+<%= form_with model: [@client] do |c| %>
+<%#= form_with model: [current_user, current_user.build_client] do |c| %>
+  <div>
+    <%= c.label :Name %>
+    <%= c.text_field :name %>
+  </div>
+
+  <div>
+    <%= c.label :Age %>
+    <%= c.text_field :age %>
+  </div>
+
+  <div>
+    <%= c.label "Phone Number" %>
+    <%= c.text_field :phone_number %>
+  </div>
+
+  <div>
+    <%= c.submit %>
+  </div>
+<% end %>
