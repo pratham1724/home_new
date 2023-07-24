@@ -1,0 +1,23 @@
+<% if @comment.present? == false %>  
+  <% if current_user.role == "client" %>
+    <p>Please create your first comment</p><br><%= link_to "Create New Comment", new_trainer_post_comment_path(@trainer,@post) %>
+    <%= link_to 'Back to Post', trainer_post_path(@trainer,@post) %>
+  <% else %>
+    <p>This Post has no comment.</p><br>
+    <%= link_to 'Back to Post', trainer_post_path(current_user.trainer.id,@post) %>
+    <%# alert: 'Trainer not found.' %>
+  <% end %>
+
+<% else  %>
+  <ul>
+  <%# if current_user.role == "client" %>
+  <%= @comment.present? %>
+    <% @comment.each do |comment| %>
+      <li><p>Commenter: <%= comment.commenter %></p></il>
+      <li><p>Comment: <%= comment.comment %></p></li>
+    <!-- Add other attributes specific to Trainer model -->
+    <%# end %>
+    <%#= link_to 'Back to Post', trainer_post_path(@comment.post.trainer, @comment.post.id) %>
+  
+  <% end %>
+<% end %>

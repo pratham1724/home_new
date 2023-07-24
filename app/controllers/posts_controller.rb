@@ -28,9 +28,9 @@ class PostsController < ApplicationController
     #   redirect_to trainer_post_path, alert: 'Post not found.'
     # else
     #   @trainer = Trainer.find(params[:trainer_id])
-    #   @post = @trainer.posts.find(params[:id])
     # end
     @trainer = Trainer.find(params[:trainer_id])
+    # @post_1 = @trainer.posts.find(params[:id])
     @post = @trainer.posts
   end
 

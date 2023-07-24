@@ -1,0 +1,16 @@
+<%= form_with model: [@trainer,@post, @comment] do |form| %>
+  <p>
+    <%= form.label :commenter %><br>
+    <%= form.text_field :commenter %>
+  </p>
+
+  <p>
+    <%= form.label :comment %><br>
+    <%= form.text_area :comment %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+<%= link_to 'Back to Post', trainer_post_path(@trainer.id,@post) %>

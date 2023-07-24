@@ -9,7 +9,7 @@
 
 <% if @post.size == 0 %>  
   <% if current_user.role == "trainer" %>
-    <p>Please create your first post</p><br><%= link_to "Create New Post", new_trainer_post_path(@trainer) %>
+    <p>Please create your first post</p><br><%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
     <%= link_to 'Back to Profile', trainer_path(@trainer) %>
   <% else %>
     <p>This trainer currently has no post.</p><br>
@@ -23,13 +23,22 @@
     <% @post.each do |post| %>
       <li><p>Title: <%= post.title %></p></il>
       <li><p>Content: <%= post.content %></p></li>
+      <%= link_to "comments", trainer_post_comments_path( @trainer.id, post.id  ) %>
+
     <!-- Add other attributes specific to Trainer model -->
     <% end %>
-    <%= link_to 'Back to Profile', trainer_path(@trainer) %>
+    <%= link_to 'Back to Profile', trainer_path %>
   <% else %>
     <% @post.each do |post| %>
       <li><p>Title: <%= post.title %></p></il>
       <li><p>Content: <%= post.content %></p></li>
+      <h2>Comments</h2>
+      <%#= render @post.comment %>
+      <%#= link_to "Add Comment", new_trainer_post_comment_path( post.trainer.id, post.id ) %>
+      <%= link_to "Add Comment", new_trainer_post_comment_path(@trainer.id,post.id)%><br>
+      <%= link_to "comments", trainer_post_comments_path( post.trainer.id, post.id  ) %><br>
+      <%#= render @post_1.comments %>
+      <%#= render 'comments/form' %>
     <!-- Add other attributes specific to Trainer model -->
     <% end %>
     <%= link_to 'Back to Trainers', trainers_path %>

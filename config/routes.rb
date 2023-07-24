@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  # get 'comments/create'
+  # get 'comments/destroy'
   root to: "homes#index"
   get 'appointments/new'
   get 'appointments/create'
@@ -11,8 +13,10 @@ Rails.application.routes.draw do
   resources :clients
   # resources :trainers
   resources :trainers do
-    resources :posts
     resources :appointments, only: [:new, :create]
+    resources :posts do
+      resources :comments
+    end
   end
 
   # resources :trainers do
