@@ -25,6 +25,11 @@
     <%= t.text_field :training_type %>
   </div>
 
+  <div class="field">
+    <%= t.label "Profile Picture" %>
+    <%= t.file_field :profile, multiple: false %>
+  </div>
+
   <div>
     <%= t.submit %>
   </div>

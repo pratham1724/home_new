@@ -7,7 +7,11 @@ class TrainersController < ApplicationController
   end
 
   def show
-    @trainer = Trainer.find(params[:id])
+    if current_user.role == "client"
+      @trainer = Trainer.find(params[:id])
+    else
+      @trainer = current_user.trainer
+    end
 
     if @trainer.nil?
       # If no trainer found, handle the situation appropriately (e.g., redirect to the trainers index page)
@@ -38,7 +42,7 @@ class TrainersController < ApplicationController
   end
 
   def trainer_params
-    params.require(:trainer).permit(:name, :age, :phone_number, :experience, :training_type)
+    params.require(:trainer).permit(:name, :age, :phone_number, :experience, :training_type, :profile)
   end
 
 end

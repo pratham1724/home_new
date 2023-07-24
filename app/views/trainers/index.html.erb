@@ -1,11 +1,13 @@
 <h1>Our Trainers</h1>
 <ul>
 <% @trainers.each do |trainer_user| %>
-<li>
+  <div>
+  <%= image_tag(trainer_user.trainer.profile,size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
   <p>Name: <%= trainer_user.trainer.name.capitalize %></p>
-  <%= link_to "View Profile", trainer_path(trainer_user.trainer) %>
+  <%= link_to "View Profile", trainer_path(trainer_user.trainer.id) %>
   <br><br>
- </il> <!-- Add other attributes specific to Trainer model -->
+  </div>
+  <!-- Add other attributes specific to Trainer model -->
 <% end %>
 </ul>
 <%#= link_to "Sign Out", destroy_user_session_path, method: :delete %>

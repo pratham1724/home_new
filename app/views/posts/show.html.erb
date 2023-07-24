@@ -25,7 +25,7 @@
       <li><p>Title: <%= post.title %></p></il>
       <% if post.images.attached? %>
         <% post.images.each do |i| %>
-          <%= image_tag(i, size: "170x180") %>
+          <%= image_tag(i, size: "250x260") %>
         <% end %>
       <% end %>
       <li><p>Content: <%= post.content %></p></li><br>
@@ -44,7 +44,7 @@
       <li><p>Title: <%= post.title %></p></il>
       <% if post.images.attached? %>
         <% post.images.each do |i| %>
-          <%= image_tag(i, size: "170x180") %>
+          <%= image_tag(i, size: "180x250") %>
         <% end %>
       <% end %>
       <li><p>Content: <%= post.content %></p></li>
@@ -58,7 +58,7 @@
     <!-- Add other attributes specific to Trainer model -->
     <% end %>
     <br>
-    <%= button_to 'Back to Trainers', trainers_path %>
+    <%= link_to 'Back to Trainers', trainers_path %>
   </ul>
   <% end %>
 <% end %>
