@@ -34,10 +34,22 @@ class PostsController < ApplicationController
     @post = @trainer.posts
   end
 
+    def destroy
+    @trainer = Trainer.find(params[:trainer_id])
+    @post = @trainer.posts.find(params[:id])
+
+    if @post.destroy
+      redirect_to trainer_path(@trainer), notice: 'Post was successfully deleted.'
+    else
+      redirect_to trainer_post_path(@trainer, @post), alert: 'Failed to delete the post.'
+    end
+  end
+
+  
   private
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, images: [])
   end
 end
 

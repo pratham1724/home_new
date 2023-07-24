@@ -11,10 +11,13 @@
 <% else  %>
   <ul>
   <%# if current_user.role == "client" %>
-  <%= @comment.present? %>
     <% @comment.each do |comment| %>
       <li><p>Commenter: <%= comment.commenter %></p></il>
       <li><p>Comment: <%= comment.comment %></p></li>
+      <li><%= link_to "Destroy", trainer_post_comment_path(@trainer.id,@post.id,comment.id), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
     <!-- Add other attributes specific to Trainer model -->
     <%# end %>
     <%#= link_to 'Back to Post', trainer_post_path(@comment.post.trainer, @comment.post.id) %>

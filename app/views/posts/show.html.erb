@@ -20,17 +20,33 @@
 <% else  %>
   <ul>
   <% if current_user.role == "trainer" %>
+  <div>
     <% @post.each do |post| %>
       <li><p>Title: <%= post.title %></p></il>
-      <li><p>Content: <%= post.content %></p></li>
+      <% if post.images.attached? %>
+        <% post.images.each do |i| %>
+          <%= image_tag(i, size: "170x180") %>
+        <% end %>
+      <% end %>
+      <li><p>Content: <%= post.content %></p></li><br>
+      <li><%= link_to "Destroy", trainer_post_path(@trainer.id,post.id), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
       <%= link_to "comments", trainer_post_comments_path( @trainer.id, post.id  ) %>
-
-    <!-- Add other attributes specific to Trainer model -->
     <% end %>
-    <%= link_to 'Back to Profile', trainer_path %>
+  </div>
+  <br>
+    <!-- Add other attributes specific to Trainer model -->   
+    <%= link_to 'Back to Profile', trainer_path(@trainer.id) %>
   <% else %>
     <% @post.each do |post| %>
       <li><p>Title: <%= post.title %></p></il>
+      <% if post.images.attached? %>
+        <% post.images.each do |i| %>
+          <%= image_tag(i, size: "170x180") %>
+        <% end %>
+      <% end %>
       <li><p>Content: <%= post.content %></p></li>
       <h2>Comments</h2>
       <%#= render @post.comment %>
@@ -41,7 +57,8 @@
       <%#= render 'comments/form' %>
     <!-- Add other attributes specific to Trainer model -->
     <% end %>
-    <%= link_to 'Back to Trainers', trainers_path %>
+    <br>
+    <%= button_to 'Back to Trainers', trainers_path %>
   </ul>
   <% end %>
 <% end %>

@@ -44,6 +44,14 @@ class CommentsController < ApplicationController
 
   
   def destroy
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
+
+    if @comment.destroy
+      redirect_to trainer_post_path(@post.trainer, @post), notice: 'Comment was successfully deleted.'
+    else
+      redirect_to trainer_post_path(@post.trainer, @post), alert: 'Failed to delete the comment.'
+    end
   end
 
   private
