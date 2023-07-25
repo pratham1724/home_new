@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'ratings/new'
+  get 'ratings/create'
+  get 'ratings/update'
   # get 'comments/create'
   # get 'comments/destroy'
   root to: "homes#index"
@@ -14,6 +17,7 @@ Rails.application.routes.draw do
   # resources :trainers
   resources :trainers do
     resources :appointments, only: [:new, :create]
+    resources :ratings
     resources :posts do
       resources :comments
     end
@@ -35,6 +39,7 @@ Rails.application.routes.draw do
  
   # Defines the root path route ("/")
   # root "articles#index"
+  
 end
 
 

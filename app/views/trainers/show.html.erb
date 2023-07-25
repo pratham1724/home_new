@@ -48,6 +48,18 @@
 <%# end %>
 
 <% if current_user.client? %>
+  <% unless current_user.client.ratings.exists?(trainer_id: @trainer.id) %>
+    <%= form_with model: Rating.new, url: trainer_ratings_path(@trainer) do |form| %>
+      <%= form.hidden_field :trainer_id, value: @trainer.id %>
+      <label for="rating_value">Rate Trainer (0 to 5):</label>
+      <%= form.select :value, (0..5).to_a, prompt: "Select rating" %>
+      <%= form.submit "Submit Rating" %>
+    <% end %>
+  <% else %>
+    <% rating = current_user.client.ratings.find_by(trainer_id: @trainer.id) %>
+    <%= link_to "Update Rating", edit_trainer_rating_path(@trainer.id,rating.id), method: :put %>
+  <% end %>
+
   <% unless current_user.client.appointments.exists?(trainer_id: @trainer.id) %>
     <%= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
   <% else %>
@@ -73,6 +85,3 @@
     <% end %>
   <% end %>
 <% end %>
-
-
-

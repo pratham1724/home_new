@@ -1,0 +1,6 @@
+<%= form_with model: @rating, url: trainer_rating_path(@trainer,@rating) do |form| %>
+  <%= form.hidden_field :trainer_id, value: @trainer.id %>
+  <label for="rating_value">Rate Trainer (0 to 5):</label>
+  <%= form.select :value, (0..5).to_a, prompt: "Select rating" %>
+  <%= form.submit "Submit Rating" %>
+<% end %>

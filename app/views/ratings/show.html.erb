@@ -1,0 +1,18 @@
+<!-- app/views/ratings/show.html.erb -->
+<h1>Rating Details</h1>
+<p>Rating ID: <%= @rating.id %></p>
+<p>Rating Value: <%= @rating.value %></p>
+
+<!-- Display information about the trainer -->
+<h2>Trainer Information</h2>
+<p>Name: <%= @trainer.name %></p>
+<p>Experience: <%= @trainer.experience %></p>
+<!-- Add any other trainer attributes you want to display -->
+
+<!-- Display information about the client -->
+<h2>Client Information</h2>
+<p>Name: <%= @client.name %></p>
+<p>Email: <%= @client.user.email %></p>
+<!-- Add any other client attributes you want to display -->
+
+<!-- Add any additional details related to the rating -->
