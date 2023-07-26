@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'chats/show'
   get 'ratings/new'
   get 'ratings/create'
   get 'ratings/update'

@@ -1,3 +1,14 @@
+<style>
+
+.stick {
+  position: relative;
+  bottom: 540px;
+  left: 1020px;
+}
+
+</style>
+
+
 <%
 =begin%>
  <h1>Post</h1>
@@ -25,7 +36,8 @@
       <li><p>Title: <%= post.title %></p></il>
       <% if post.images.attached? %>
         <% post.images.each do |i| %>
-          <%= image_tag(i, size: "250x260") %>
+        
+          <%= image_tag(i, size: "300x310", style: 'border-radius: 20%;') %>
         <% end %>
       <% end %>
       <li><p>Content: <%= post.content %></p></li><br>
@@ -34,17 +46,20 @@
                     turbo_confirm: "Are you sure?"
                   } %></li>
       <%= link_to "comments", trainer_post_comments_path( @trainer.id, post.id  ) %>
+      <hr>
     <% end %>
   </div>
   <br>
     <!-- Add other attributes specific to Trainer model -->   
+    <div class = "stick">
     <%= link_to 'Back to Profile', trainer_path(@trainer.id) %>
+    </div>
   <% else %>
     <% @post.each do |post| %>
       <li><p>Title: <%= post.title %></p></il>
       <% if post.images.attached? %>
         <% post.images.each do |i| %>
-          <%= image_tag(i, size: "180x250") %>
+          <%= image_tag(i, size: "300x310", style: 'border-radius: 20%;') %>
         <% end %>
       <% end %>
       <li><p>Content: <%= post.content %></p></li>
@@ -58,7 +73,10 @@
     <!-- Add other attributes specific to Trainer model -->
     <% end %>
     <br>
+    <hr>
+    <div class = "stick">
     <%= link_to 'Back to Trainers', trainers_path %>
+    </div>
   </ul>
   <% end %>
 <% end %>

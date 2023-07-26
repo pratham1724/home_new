@@ -76,3 +76,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "bourbon", "~> 7.3"
+
+gem "bitters", "~> 2.0"
+
+gem "sassc", "~> 2.4"
