@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_074350) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_115327) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -68,6 +68,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_074350) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "room_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["room_id"], name: "index_messages_on_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -81,6 +91,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_074350) do
     t.integer "value"
     t.integer "client_id"
     t.integer "trainer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_private", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -121,6 +138,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_074350) do
   add_foreign_key "appointments", "trainers"
   add_foreign_key "clients", "users"
   add_foreign_key "comments", "posts"
+  add_foreign_key "messages", "rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "posts", "trainers"
   add_foreign_key "trainers", "users"
 end
