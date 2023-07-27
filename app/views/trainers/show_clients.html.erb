@@ -1,0 +1,10 @@
+<ul>
+<div>
+  <% @all_clients.each do |c| %>
+
+    <li><p>Name: <%= c.name %></p></li><br>
+  <% end %>
+</div>
+</ul>
+
+<%= link_to 'Back to Profile', trainer_path(@trainer.id) %>

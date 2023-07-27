@@ -1,5 +1,7 @@
 <!-- app/views/ratings/show.html.erb -->
-<h1>Rating Details</h1>
+<%
+=begin%>
+ <h1>Rating Details</h1>
 <p>Rating ID: <%= @rating.id %></p>
 <p>Rating Value: <%= @rating.value %></p>
 
@@ -12,7 +14,17 @@
 <!-- Display information about the client -->
 <h2>Client Information</h2>
 <p>Name: <%= @client.name %></p>
-<p>Email: <%= @client.user.email %></p>
+<p>Email: <%= @client.user.email %></p> 
+<%
+=end%>
 <!-- Add any other client attributes you want to display -->
 
 <!-- Add any additional details related to the rating -->
+<% @rate = [] %>
+<% @ratings.each do |r| %> 
+  <% @rate << r.value %>
+<% end %>
+
+<% @my_rating = @rate.sum/@rate.size %>
+
+<p>Rating: <%= @my_rating %>

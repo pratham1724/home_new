@@ -1,10 +1,31 @@
+<%
+=begin%>
+ <style>
+  .stick{
+    display: flex;
+    justify-content: right;
+    margin-top: -28rem
+  }
+</style> 
+<%
+=end%>
+
+
+<% @rate = [] %>
+<% @ratings.each do |r| %> 
+  <% @rate << r.value %>
+<% end %>
+<% @my_rating = @rate.sum/@rate.size.to_f %>
+
 <%= image_tag(@trainer.profile,size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
 
 <h2>Welcome, I am <%= @trainer.name.capitalize %> </h2>
 
 <p>I am <%= @trainer.age %> years old.</p>
 <p>Here you can contact me:-<br><li><%= @trainer.phone_number %></li><br><li><%= @trainer.user.email %></li></p>
-<%= link_to 'My Posts', trainer_post_path(@trainer) %>
+<p>Rating: <%= @my_rating %><br>
+<%= link_to 'My Posts', trainer_post_path(@trainer) %><br>
+
 
 <%
 =begin%>
@@ -20,14 +41,17 @@
  <%# if current_user == @trainer.user %>
     <%#= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
   <%# end %> 
-
+<div class="stick">
   <%= link_to "Back to Feeds", trainers_path %><br>
+</div>
   <%#= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
 <% else %>
 
  <%# if current_user == @trainer.user %> 
 
   <%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
+  <%= link_to "My Clients", my_clients_path(@trainer)%><br>
+
   <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
   <%# end %>
 <%# end %>
@@ -79,9 +103,10 @@
   <% if current_user.trainer? %>
     <% @trainer.appointments.each do |appointment| %>
       <% unless appointment.confirmed? %>
-        <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %>
+        <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %><br>
         <%= link_to "Reject Appointment", reject_appointment_path(appointment) %>
       <% end %>
     <% end %>
   <% end %>
 <% end %>
+

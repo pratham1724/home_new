@@ -35,6 +35,8 @@ Rails.application.routes.draw do
       delete :cancel
     end
   end
+
+  get '/trainers/:trainer_id/My_Clients', to: 'trainers#show_clients', as: "my_clients"
   delete '/trainers/sign_out', to: 'devise/sessions#destroy', as: :trainers_sign_out
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
  

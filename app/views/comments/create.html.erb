@@ -1,5 +1,7 @@
 <%#= form_with model: [ @post, @post.comments.build ] do |form| %>
-<%= form_with model: [  ] do |form| %>
+<%
+=begin%>
+ <%= form_with model: [  ] do |form| %>
   <p>
     <%= form.label :commenter %><br>
     <%= form.text_field :commenter %>
@@ -13,4 +15,6 @@
   <p>
     <%= form.submit %>
   </p>
-<% end %>
+<% end %> 
+<%
+=end%>

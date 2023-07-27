@@ -56,6 +56,8 @@ end
     @rating = Rating.find(params[:id])
     @trainer = @rating.trainer
     @client = @rating.client
+
+    @ratings = @trainer.ratings
     # Add any additional code related to displaying individual rating details
   end
 

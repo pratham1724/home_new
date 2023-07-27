@@ -1,3 +1,14 @@
+<style>
+
+.stick {
+  position: relative;
+  bottom: 540px;
+  left: 1020px;
+}
+
+</style>
+
+
 <% if @comment.present? == false %>  
   <% if current_user.role == "client" %>
     <p>Please create your first comment</p><br><%= link_to "Create New Comment", new_trainer_post_comment_path(@trainer,@post) %>
@@ -17,10 +28,14 @@
       <li><%= link_to "Destroy", trainer_post_comment_path(@trainer.id,@post.id,comment.id), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
-                  } %></li>
+                  } %></li><hr>
+      
     <!-- Add other attributes specific to Trainer model -->
     <%# end %>
     <%#= link_to 'Back to Post', trainer_post_path(@comment.post.trainer, @comment.post.id) %>
   
   <% end %>
+  <div>
+  <%= link_to 'Back to Post', trainer_post_path(@trainer,@post) %>
+  </div>
 <% end %>

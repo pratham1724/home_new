@@ -9,8 +9,11 @@ class TrainersController < ApplicationController
   def show
     if current_user.role == "client"
       @trainer = Trainer.find(params[:id])
+      @ratings = @trainer.ratings
     else
+      # @appointent = Appointment.find_by(trainer_id:@trainer.id).client
       @trainer = current_user.trainer
+      @ratings = @trainer.ratings
     end
 
     if @trainer.nil?
@@ -31,7 +34,16 @@ class TrainersController < ApplicationController
       render :new
     end
   end
-
+  
+  def show_clients
+    # @all_clients = Client.joins(appointments: :trainer).where("appointments.trainer_id = ?", @trainer.id )
+    @trainer = current_user.trainer
+    @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
+    # @all_clients.each do |c|
+    #   c.name
+    # end
+  end
+  
   def edit
   end
 

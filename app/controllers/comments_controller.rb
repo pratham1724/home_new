@@ -7,8 +7,9 @@ class CommentsController < ApplicationController
     # @trainer = Trainer.find(params[:user_id])
     # @post = current_user.trainer.posts.find(params[:trainer_id])
     @post = Post.find(params[:post_id])
-    @trainer_1 = @post.trainer_id
-    @trainer = Trainer.find(@trainer_1)
+    # @trainer_1 = @post.trainer_id
+    # @trainer = Trainer.find(@trainer_1)
+    @trainer = Trainer.find( @post.trainer_id )
     @comment = @post.comments.build
   end
   
