@@ -1,9 +1,16 @@
-<div class="row">
-  <div class="col-md-2">
+<div id="chatroom_continer" class="row, bg-dark text-light">
+  <div id="side_panel" class="col-md-4 col-sm-4">
     <h5> Hi <%= @current_user.email %> </h5>
-    <h4> Users </h4>
+    <%
+=begin%>
+ <h4> Users </h4> 
+<%
+=end%>
+
+    <h4> Trainers </h4>
     <div>
-      <%= turbo_stream_from "users" %>
+      <%#= turbo_stream_from "users" %>
+      <%= turbo_stream_from "trainers" %>
       <div id="users">
         <%= render @users %>
       </div>
@@ -17,14 +24,14 @@
       </div>
     </div>
   </div>
-  <div class="col-md-10 bg-dark text-light">
+  <div id="room_container" class="col-md-8 col-sm-8 bg-dark text-light">
   <% if @single_room %>
     <%= turbo_stream_from @single_room %>
     <div id="messages">
       <%= render @messages %>
     </div>
     <%= render partial: 'layouts/new_message_form' %>
-    <h4 class="text-center"> <%= @single_room.email %> </h4>
+    <h4 class="text-center"> <%= @user&.email || @single_room.name %> </h4>
   <% end %>
   </div>
 

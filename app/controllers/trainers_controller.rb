@@ -56,5 +56,6 @@ class TrainersController < ApplicationController
   def trainer_params
     params.require(:trainer).permit(:name, :age, :phone_number, :experience, :training_type, :profile)
   end
+  
 
 end

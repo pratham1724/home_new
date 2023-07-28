@@ -49,6 +49,9 @@ end
 
   get '/trainers/:trainer_id/My_Clients', to: 'trainers#show_clients', as: "my_clients"
   delete '/trainers/sign_out', to: 'devise/sessions#destroy', as: :trainers_sign_out
+  
+  get 'user/:id', to: 'trainers#show', as: 'user'
+  
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
  
   # Defines the root path route ("/")

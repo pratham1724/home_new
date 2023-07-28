@@ -92,7 +92,7 @@
       <% if appointment.confirmed.nil? %>
         <p>Please wait for the trainer to confirm your appointment.</p>
       <% elsif appointment.confirmed? %>
-        <%= button_to "Chat", rooms_path %>
+        <%= link_to "Chat", rooms_path %>
       <% end %>
     <% end %>
   <% end %>
@@ -105,8 +105,9 @@
       <% unless appointment.confirmed? %>
         <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %><br>
         <%= link_to "Reject Appointment", reject_appointment_path(appointment) %>
+      <% else %>
+        <%= link_to "Chat", rooms_path %>
       <% end %>
     <% end %>
   <% end %>
 <% end %>
-
