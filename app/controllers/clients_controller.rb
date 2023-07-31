@@ -14,9 +14,10 @@ class ClientsController < ApplicationController
     if current_user.role == "client"
       @client = current_user.client
     else
-      @trainer = current_user.trainer
-      @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
-      @client = @all_clients.find(params[:client_id])
+      # @trainer = current_user.trainer
+      # @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
+      # @client = @all_clients.find(params[:client_id])
+      @client = Client.find(params[:id])
     end
   end
 
@@ -27,7 +28,7 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.build_client(client_params)
     if @client.save
-      redirect_to trainers_path
+      redirect_to client_path(current_user)
     else
       render :new, status: :unprocessable_entity
     end

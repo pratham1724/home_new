@@ -26,6 +26,9 @@
 <p>I am <%= @trainer.age %> years old.</p>
 <p>Here you can contact me:-<br><li><%= @trainer.phone_number %></li><br><li><%= @trainer.user.email %></li></p>
 <p>Rating: <%= @my_rating %><br>
+<% if current_user.role == "trainer" %>
+    <%= link_to 'Edit Your Profile', edit_trainer_path(@trainer) %> <br>
+<% end %>
 <%= link_to 'My Posts', trainer_post_path(@trainer) %><br>
 
 
@@ -51,7 +54,7 @@
 
  <%# if current_user == @trainer.user %> 
 
-  <%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
+  <%# = link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
   <%= link_to "My Clients", my_clients_path(@trainer)%><br>
 
   <%= link_to "View All Clients Available", clients_path %><br>

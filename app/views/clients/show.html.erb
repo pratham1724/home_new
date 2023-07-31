@@ -6,11 +6,12 @@
 
 <p>Age: <%= @client.age %></p>
 <p>Phone Number: <%= @client.phone_number %></p>
-
-<%= link_to 'Edit', edit_client_path(@client) %> <br>
-<%= link_to 'Visit Our Trainers', trainers_path %> <br>
+<% if current_user.role == "client" %>
+  <%= link_to 'Edit Your Profile', edit_client_path(@client) %> <br>
+  <%= link_to 'Visit Our Trainers', trainers_path %> <br>
+  <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
+<% end %>
 <% if current_user.role == "trainer" %>
   <%= link_to "Back to your profile", trainer_path(current_user) %>
 <% end %>
-<%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
 

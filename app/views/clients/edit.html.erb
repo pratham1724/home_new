@@ -17,6 +17,11 @@
         <%= c.text_field :phone_number %>
       </div>
     
+      <div class="field">
+        <%= c.label "Profile Picture" %>
+        <%= c.file_field :profile, multiple: false %>
+      </div>
+
       <div>
         <%= c.submit %>
       </div>

@@ -45,12 +45,19 @@ class TrainersController < ApplicationController
   end
   
   def edit
+    @trainer = Trainer.find(params[:id])
   end
 
   def update
   end
 
   def destroy
+    @trainer = Trainer.find(params[:id])
+    if @trainer.update(trainer_params)
+      redirect_to @trainer, notice: 'trainer was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def trainer_params
