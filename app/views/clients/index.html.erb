@@ -2,8 +2,21 @@
 
 <ul>
   <% @clients.each do |client| %>
-    <li>
-      <%= link_to client.name, client %>
-    </li>
+    <div style="display: flex; align-items: center;">
+      <%= image_tag(client.profile, size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
+      <div style="margin-left: 10px;">
+        <p>Name: <%= client.name.capitalize %></p>
+        <%= link_to "View Profile", client_path(client) %>
+      </div>
+    </div>
   <% end %>
 </ul>
+<%= link_to "Back to your profile", trainer_path(current_user) %>
+
+<div class="text-center">
+  <div class="digg_pagination">
+    <div class="page_info">
+      <%= will_paginate @trainers %>
+    </div>
+  </div>
+</div>

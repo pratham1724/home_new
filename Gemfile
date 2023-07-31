@@ -9,6 +9,8 @@ gem 'letter_opener', group: :development
 
 gem "byebug"
 
+gem "stripe"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 
@@ -83,3 +85,7 @@ gem "bourbon", "~> 7.3"
 gem "bitters", "~> 2.0"
 
 gem "sassc", "~> 2.4"
+
+gem "will_paginate"
+
+gem "kaminari"

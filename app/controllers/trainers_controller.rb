@@ -2,8 +2,7 @@ class TrainersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-     @trainers = User.where(role: :trainer).joins(:trainer)
-    #  @trainers = User.joins(:trainer).where("users.role = ?", "trainer")
+    @trainers = User.where(role: :trainer).joins(:trainer).paginate(page: params[:page], per_page: 5)
   end
 
   def show

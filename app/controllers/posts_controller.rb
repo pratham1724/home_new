@@ -31,7 +31,7 @@ class PostsController < ApplicationController
     # end
     @trainer = Trainer.find(params[:trainer_id])
     # @post_1 = @trainer.posts.find(params[:id])
-    @post = @trainer.posts
+    @post = @trainer.posts.paginate(page: params[:page], per_page: 3)
   end
 
     def destroy

@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @clients = Client.all
+    @clients = Client.all.paginate(page: params[:page], per_page: 5)
     # if current_user.role == "trainer"
     #   @trainer = current_user.trainer
     #   @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)

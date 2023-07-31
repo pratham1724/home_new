@@ -19,7 +19,6 @@
 
 
 
-
 <h1>Our Trainers</h1>
 <ul>
   <% @trainers.each do |trainer_user| %>
@@ -37,3 +36,11 @@
 <% if current_user.role == "client" %>
     <%= link_to "Back to your profile", client_path(current_user) %>
 <% end %>
+
+<div class="text-center">
+  <div class="digg_pagination">
+    <div class="page_info">
+      <%= will_paginate @trainers %>
+    </div>
+  </div>
+</div>

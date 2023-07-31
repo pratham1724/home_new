@@ -54,7 +54,7 @@
 
  <%# if current_user == @trainer.user %> 
 
-  <%# = link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
+  <%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
   <%= link_to "My Clients", my_clients_path(@trainer)%><br>
 
   <%= link_to "View All Clients Available", clients_path %><br>
