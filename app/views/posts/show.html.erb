@@ -24,7 +24,7 @@
     <%= link_to 'Back to Profile', trainer_path(@trainer) %>
   <% else %>
     <p>This trainer currently has no post.</p><br>
-    <%= link_to 'Back to Trainers', trainers_path %>
+    <%= link_to 'Back to Profile', trainer_path(@trainer.id) %>
     <%# alert: 'Trainer not found.' %>
   <% end %>
 
@@ -75,7 +75,7 @@
     <br>
     <hr>
     <div class = "stick">
-    <%= link_to 'Back to Trainers', trainers_path %>
+    <%= link_to 'Back to Profile', trainer_path(@trainer.id) %>
     </div>
   </ul>
   <% end %>

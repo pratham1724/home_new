@@ -1,8 +1,16 @@
-<% if current_user.client? %>
-<% @client.appointments.each do |appointment| %>
-  <% unless appointment.confirmed? %>
-    <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %>
-    <%= link_to "Cancel Appointment", cancel_appointment_path(appointment), method: :delete, data: { confirm: "Are you sure you want to cancel this appointment?" } %>
-  <% end %>
+<% if @client.profile.attached? %>
+  <%= image_tag(@client.profile,size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
 <% end %>
+
+<h1><%= @client.name %></h1>
+
+<p>Age: <%= @client.age %></p>
+<p>Phone Number: <%= @client.phone_number %></p>
+
+<%= link_to 'Edit', edit_client_path(@client) %> <br>
+<%= link_to 'Visit Our Trainers', trainers_path %> <br>
+<% if current_user.role == "trainer" %>
+  <%= link_to "Back to your profile", trainer_path(current_user) %>
 <% end %>
+<%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
+

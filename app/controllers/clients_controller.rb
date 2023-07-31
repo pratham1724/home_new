@@ -2,9 +2,22 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!
   
   def index
+    @clients = Client.all
+    # if current_user.role == "trainer"
+    #   @trainer = current_user.trainer
+    #   @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
+    #   @client = @all_clients.find(params[:client_id])
+    # end
   end
 
   def show
+    if current_user.role == "client"
+      @client = current_user.client
+    else
+      @trainer = current_user.trainer
+      @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
+      @client = @all_clients.find(params[:client_id])
+    end
   end
 
   def new
@@ -21,9 +34,16 @@ class ClientsController < ApplicationController
   end
 
   def edit
+    @client = Client.find(params[:id])
   end
 
   def update
+    @client = Client.find(params[:id])
+    if @client.update(client_params)
+      redirect_to @client, notice: 'Client was successfully updated.'
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -32,7 +52,7 @@ class ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(:name, :age, :phone_number)
+    params.require(:client).permit(:name, :age, :phone_number, :profile)
   end
 
 end

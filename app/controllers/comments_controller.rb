@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     # @trainer_1 = @post.trainer_id
     # @trainer = Trainer.find(@trainer_1)
     @trainer = Trainer.find( @post.trainer_id )
-    @comment = @post.comments.build
+    @comment = @post.comments.new()
   end
   
   
@@ -18,9 +18,10 @@ class CommentsController < ApplicationController
     # @trainer = current_user.trainer.find(params[:user_id])
     # @post = current_user.trainer.posts.find(params[:trainer_id])
     @post = Post.find(params[:post_id])
-    @trainer_1 = @post.trainer_id
-    @trainer = Trainer.find(@trainer_1)
-    @comment = @post.comments.new(comment_params)
+    # @trainer_1 = @post.trainer_id
+    @trainer = Trainer.find(@post.trainer_id)
+    # @comment = @post.comments.new(comment_params)
+    @comment = @post.comments.new(comment_params.merge(commenter: current_user.client.name))
     if @comment.save 
       redirect_to trainer_post_path(@trainer, @post.id)
     else 
