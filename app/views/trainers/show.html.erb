@@ -1,19 +1,6 @@
-<%
-=begin%>
- <style>
-  .stick{
-    display: flex;
-    justify-content: right;
-    margin-top: -28rem
-  }
-</style> 
-<%
-=end%>
-
-
 <% @rate = [] %>
 <% @ratings.each do |r| %> 
-  <% @rate << r.value %>
+  <% @rate << r.value.to_i %>
 <% end %>
 <% @my_rating = @rate.sum/@rate.size.to_f %>
 
@@ -27,56 +14,20 @@
 <p>Here you can contact me:-<br><li><%= @trainer.phone_number %></li><br><li><%= @trainer.user.email %></li></p>
 <p>Rating: <%= @my_rating %><br>
 <% if current_user.role == "trainer" %>
-    <%= link_to 'Edit Your Profile', edit_trainer_path(@trainer) %> <br>
+  <%= link_to 'Edit Your Profile', edit_trainer_path(@trainer) %> <br>
 <% end %>
 <%= link_to 'My Posts', trainer_post_path(@trainer) %><br>
 
-
-<%
-=begin%>
- <p>Name: <%= @trainer.name %></p>
-<p>Age: <%= @trainer.age %></p>
-<p>Phone Number: <%= @trainer.phone_number %></p>
-<p>Email: <%= @trainer.user.email %></p> 
-<%
-=end%>
-<!-- Add other attributes specific to Trainer model -->
 <% if current_user.role == "client" %>
-
- <%# if current_user == @trainer.user %>
-    <%#= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
-  <%# end %> 
-<div class="stick">
-  <%= link_to "Back to Feeds", trainers_path %><br>
-</div>
-  <%#= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
+  <div class="stick">
+    <%= link_to "Back to Feeds", trainers_path %><br>
+  </div>
 <% else %>
-
- <%# if current_user == @trainer.user %> 
-
   <%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
   <%= link_to "My Clients", my_clients_path(@trainer)%><br>
-
   <%= link_to "View All Clients Available", clients_path %><br>
-
   <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
-  <%# end %>
-<%# end %>
 <% end %>
-
-<%# if current_user.client? %>
-  <%# unless current_user.client.appointments.id? %>
-    <%#= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
-  <%# end %>
-  <%# elsif current_user.client.appointments.id? and current_user.client.appointments.confirmed.nil? %>
-    <%
-=begin%>
- <p> Please Wait For The Trainer To Confirm Your Appointment. </p> 
-<%
-=end%>
-  <%# elsif current_user.client.appointments.id? and current_user.client.appointments.confirmed? %>
-    <%# button_to "Chat" %>
-<%# end %>
 
 <% if current_user.client? %>
   <% unless current_user.client.ratings.exists?(trainer_id: @trainer.id) %>
@@ -104,7 +55,6 @@
     <% end %>
   <% end %>
 <% end %>
-
 
 <% if current_user.present? %>
   <% if current_user.trainer? %>

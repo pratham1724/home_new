@@ -1,24 +1,14 @@
 class ClientsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_client, only: [:show]
   
   def index
     @clients = Client.all.paginate(page: params[:page], per_page: 5)
-    # if current_user.role == "trainer"
-    #   @trainer = current_user.trainer
-    #   @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
-    #   @client = @all_clients.find(params[:client_id])
-    # end
+    
   end
 
   def show
-    if current_user.role == "client"
-      @client = current_user.client
-    else
-      # @trainer = current_user.trainer
-      # @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
-      # @client = @all_clients.find(params[:client_id])
-      @client = Client.find(params[:id])
-    end
+     # @client is already set in the before_action callback
   end
 
   def new
@@ -28,7 +18,7 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.build_client(client_params)
     if @client.save
-      redirect_to client_path(current_user)
+      redirect_to trainers_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -54,6 +44,14 @@ class ClientsController < ApplicationController
 
   def client_params
     params.require(:client).permit(:name, :age, :phone_number, :profile)
+  end
+
+  def set_client
+    if current_user.client?
+      @client = current_user.client
+    else
+      @client = Client.find(params[:id])
+    end
   end
 
 end

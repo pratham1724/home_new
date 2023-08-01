@@ -1,23 +1,15 @@
 class TrainersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_trainer, only: [:show]
 
   def index
     @trainers = User.where(role: :trainer).joins(:trainer).paginate(page: params[:page], per_page: 5)
   end
 
   def show
-    if current_user.role == "client"
-      @trainer = Trainer.find(params[:id])
-      @ratings = @trainer.ratings
-    else
-      # @appointent = Appointment.find_by(trainer_id:@trainer.id).client
-      @trainer = current_user.trainer
-      @ratings = @trainer.ratings
-    end
-
+    @ratings = @trainer.ratings  # @trainer is already set in the before_action callback
     if @trainer.nil?
-      # If no trainer found, handle the situation appropriately (e.g., redirect to the trainers index page)
-      redirect_to trainers_path, alert: 'Trainer not found.'
+      redirect_to trainers_path, alert: 'Trainer not found.'  # If no trainer found
     end
   end
 
@@ -35,12 +27,8 @@ class TrainersController < ApplicationController
   end
   
   def show_clients
-    # @all_clients = Client.joins(appointments: :trainer).where("appointments.trainer_id = ?", @trainer.id )
     @trainer = current_user.trainer
     @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
-    # @all_clients.each do |c|
-    #   c.name
-    # end
   end
   
   def edit
@@ -48,9 +36,6 @@ class TrainersController < ApplicationController
   end
 
   def update
-  end
-
-  def destroy
     @trainer = Trainer.find(params[:id])
     if @trainer.update(trainer_params)
       redirect_to @trainer, notice: 'trainer was successfully updated.'
@@ -59,9 +44,19 @@ class TrainersController < ApplicationController
     end
   end
 
+  def destroy
+  end
+
   def trainer_params
     params.require(:trainer).permit(:name, :age, :phone_number, :experience, :training_type, :profile)
   end
   
+  def set_trainer
+    if current_user.client?
+      @trainer = Trainer.find(params[:id])
+    else
+      @trainer = current_user.trainer
+    end
+  end
 
 end
