@@ -6,6 +6,18 @@
 
 <p>Age: <%= @client.age %></p>
 <p>Phone Number: <%= @client.phone_number %></p>
+
+<% if current_user.trainer? and current_user.trainer.appointments.exists?(client_id: @client.id) %>
+  <% appointment = current_user.trainer.appointments.find_by(client_id: @client.id, trainer_id: current_user.trainer.id) %>
+  <% if appointment.present? %>
+    <% if appointment.confirmed.nil? %>
+      <p>Please wait for the trainer to confirm your appointment.</p>
+    <% elsif appointment.confirmed? and appointment.trainer_id == current_user.trainer.id %>
+      <%= link_to "Chat", client_private_chat_path(@client.id) %>
+    <% end %>
+  <% end %>
+<% end %>
+
 <% if current_user.role == "client" %>
   <%= link_to 'Edit Your Profile', edit_client_path(@client) %> <br>
   <%= link_to 'Visit Our Trainers', trainers_path %> <br>

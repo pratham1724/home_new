@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   get 'messages/new'
   get 'messages/index'
   get 'rooms/index'
@@ -14,7 +16,9 @@ Rails.application.routes.draw do
   get 'posts/new'
   get 'posts/create'
   get 'posts/show'
-  
+
+  get "/client/:client_id", to: "chats#private_chat", as: "client_private_chat"
+  get "/trainer/:trainer_id", to: "chats#private_chat", as: "trainer_private_chat"
   devise_for :users
   
   # devise_scope :users do
