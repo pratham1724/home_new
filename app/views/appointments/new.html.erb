@@ -1,6 +1,4 @@
 <%= form_with(model: @appointment, url: trainer_appointments_path(@trainer)) do |form| %>
   <%= form.hidden_field :trainer_id, value: @trainer.id %>
-  <!-- Add other form fields here if needed -->
-
   <%= form.submit "Schedule Appointment" %>
 <% end %>

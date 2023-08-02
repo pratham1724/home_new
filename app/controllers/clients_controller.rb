@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_client, only: [:show]
+  load_and_authorize_resource
   
   def index
     @clients = Client.all.paginate(page: params[:page], per_page: 5)
@@ -18,7 +19,7 @@ class ClientsController < ApplicationController
   def create
     @client = current_user.build_client(client_params)
     if @client.save
-      redirect_to trainers_path
+      redirect_to client_path(current_user)
     else
       render :new, status: :unprocessable_entity
     end

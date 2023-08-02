@@ -1,14 +1,17 @@
 class PostsController < ApplicationController
   before_action :authenticate_user! #to ensure users are signed in to create posts
   before_action :set_trainer, only: [:new, :create, :show, :destroy]
-
+  # load_and_authorize_resource
   def new
-    @post = @trainer.posts.new
+    if current_user.role == "client"
+      redirect_to client_path(current_user)
+    else
+      @post = @trainer.posts.new
+    end
   end
 
   def create
     @post = @trainer.posts.new(post_params)
-
     if @post.save
       redirect_to trainer_post_path(@trainer, @post.id), notice: 'Post was successfully created.'
     else

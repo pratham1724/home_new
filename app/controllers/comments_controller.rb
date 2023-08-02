@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :set_post, only: [:new, :create, :index, :destroy]
   before_action :set_trainer, only: [:new, :create]
-
+  load_and_authorize_resource
   def new
     @comment = @post.comments.new()
   end

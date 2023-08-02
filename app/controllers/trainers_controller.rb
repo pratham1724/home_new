@@ -1,9 +1,10 @@
 class TrainersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_trainer, only: [:show]
+  load_and_authorize_resource
 
   def index
-    @trainers = User.where(role: :trainer).joins(:trainer).paginate(page: params[:page], per_page: 5)
+    @trainers = User.where(role: :trainer).joins(:trainer).paginate(page: params[:page], per_page: 3)
   end
 
   def show
