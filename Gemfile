@@ -9,6 +9,8 @@ gem 'letter_opener', group: :development
 
 gem "byebug"
 
+gem "stripe"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.6"
 
@@ -34,7 +36,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 # Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
+gem "redis", "~> 4.0"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -83,3 +85,9 @@ gem "bourbon", "~> 7.3"
 gem "bitters", "~> 2.0"
 
 gem "sassc", "~> 2.4"
+
+gem "will_paginate"
+
+gem "kaminari"
+
+gem "cancancan", "~> 3.5"

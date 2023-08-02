@@ -1,5 +1,5 @@
-$blue: #1565c0;
-$blue-light: #3b83d5;
+$blue: black;
+$blue-light: white;
 $gray: #333;
 $white: #fff;
 
@@ -40,9 +40,8 @@ a {
   text-decoration-skip-ink: auto;
   transition: color var(--duration) var(--timing);
 
-
   &:hover {
-    color: $action-color--alt;
+    color: #017575;
   }
 
   &:focus {

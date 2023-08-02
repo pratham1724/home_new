@@ -14,8 +14,60 @@
  *= require_self
  */
 
-@import 'bourbon';
-@import 'base/base';
+@import "bourbon";
+@import "base/base";
+
+.body {
+  overflow: hidden;
+}
+
+.msg-form {
+  width: 46%;
+  height: 56px;
+  padding: 10px;
+}
+
+#single_room {
+  height: calc(100vh - 150px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#room_container {
+  height: 100vh;
+  margin-right: 0px !important;
+}
+
+#side_panel {
+  height: 100vh;
+  margin-right: 0px !important;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin-bottom: 55px;
+}
+
+#chatroom_container {
+  height: 100vh;
+  margin-left: 0px !important;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.msg-content {
+  width: 80%;
+  margin-right: 5px;
+}
+
+.msg-box {
+  word-wrap: break-word;
+  width: fit-content;
+  max-width: 40%;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  background-color: #555555;
+  padding: 10px;
+}
 
 .container {
   margin: 0 auto;
@@ -24,10 +76,10 @@
 }
 
 .header {
-  background: rgba(0, 0, 0, .05);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 3px;
   margin: 0 0 1em;
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .chat {
@@ -36,12 +88,12 @@
 }
 
 .messages {
-  border: 1px solid rgba(0, 0, 0, .1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   height: 10em;
-  margin: 0 0 .5em;
+  margin: 0 0 0.5em;
   overflow-y: scroll;
-  padding: .5em;
+  padding: 0.5em;
 }
 
 .message {
@@ -55,5 +107,5 @@
 }
 
 .other-links {
-  margin: .5em 0 0;
+  margin: 0.5em 0 0;
 }

@@ -61,35 +61,35 @@
  
     </style>
     <nav>
-        <a class="links">
-        <%= link_to "HOME", {:style=>'color:#FFFFFF;', :class => "css_class"} %>
-        </a>
-
-        <a class="links">
-        <%= link_to "CREATE POST", {:style=>'color:#FFFFFF;', :class => "css_class"} %>
-        </a>
-
-        <a class="links">
-        <%#= link_to "PROFILE", user_profile_path(current_user, current_user.profile.id) %>
-
-            <%= link_to "CREATE PROFILE", {:style=>'color:#FFFFFF;', :class => "css_class"} %>
-
-        <%#= link_to "PROFILE", user_profile_path(current_user, current_user.profile.id) %>
-        </a>
-        
-        <div class="dropdown-menu">
-            <button class="menu-btn">Open</button>
-            <div class="menu-content">
-                <a class="links-hidden">
-                <%= button_to "LOG OUT", destroy_user_session_path, :method => :delete,
-                      :data => { :no_turbolink => true} %>
-                </a>
-                <a class="links-hidden">
-                <%= button_to "EDIT PROFILE" %>
-                </a>
-                <a class="links-hidden">
-                <%= button_to "CHATS" %>
-                </a>
+        <% if current_user.role == "client" %>
+            <a class="links">
+            <%= link_to "HOME", client_path(current_user), {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+            </a>           
+            <div class="dropdown-menu">
+                <button class="menu-btn">Open</button>
+                <div class="menu-content">
+                    <a class="links-hidden">
+                    <%= button_to "LOG OUT", destroy_user_session_path, :method => :delete,
+                        :data => { :no_turbolink => true} %>
+                    </a>
+                </div>
             </div>
-        </div>
+        <% else %>
+            <a class="links">
+            <%= link_to "HOME", trainer_path(current_user), {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+            </a>
+
+            <a class="links">
+            <%= link_to "CREATE POST", {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+            </a>
+            <div class="dropdown-menu">
+                <button class="menu-btn">Open</button>
+                <div class="menu-content">
+                    <a class="links-hidden">
+                    <%= button_to "LOG OUT", destroy_user_session_path, :method => :delete,
+                        :data => { :no_turbolink => true} %>
+                    </a>
+                </div>
+            </div>
+        <% end %>
     </nav>

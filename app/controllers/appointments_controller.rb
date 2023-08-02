@@ -2,11 +2,10 @@ class AppointmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_client, only: [:new, :create]
   before_action :authorize_trainer, only: [:confirm, :reject]
+  before_action :set_trainer, only: [:new, :create]
+  before_action :set_appointment, only: [:confirm, :reject]
 
   def new
-    @trainer = Trainer.find(params[:trainer_id])
-
-    # Check if the current user has an associated client record
     if current_user.client.present?
       @appointment = current_user.client.appointments.new(trainer: @trainer)
     else
@@ -15,7 +14,6 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @trainer = Trainer.find(params[:trainer_id])
     @appointment = current_user.client.appointments.new(appointment_params.merge(trainer: @trainer))
 
     if @appointment.save
@@ -27,14 +25,12 @@ class AppointmentsController < ApplicationController
   end
 
   def confirm
-    @appointment = Appointment.find(params[:id])
     @appointment.update(confirmed: true)
     AppointmentMailer.appointment_confirmation(@appointment).deliver_now
     redirect_to @appointment.trainer, notice: 'Appointment confirmed successfully.'
   end
 
   def reject
-    @appointment = Appointment.find(params[:id])
     @appointment.destroy
     redirect_to @appointment.trainer, notice: 'Appointment rejected successfully.'
   end
@@ -51,5 +47,13 @@ class AppointmentsController < ApplicationController
 
   def authorize_trainer
     redirect_to root_path, alert: "Access denied. Only trainers can confirm or reject appointments." unless current_user.trainer?
+  end
+
+  def set_trainer
+    @trainer = Trainer.find(params[:trainer_id])
+  end
+
+  def set_appointment
+    @appointment = Appointment.find(params[:id])
   end
 end

@@ -1,7 +1,7 @@
 class RatingsController < ApplicationController
   # before_action :authenticate_user!, only: [:create, :update]
   # before_action :check_client_role, only: [:create, :update]
-
+  load_and_authorize_resource
   def new
   end
 
@@ -39,26 +39,22 @@ class RatingsController < ApplicationController
     @trainer = @rating.trainer
   end
 
-  # app/controllers/ratings_controller.rb
-def update
-  @rating = Rating.find(params[:id])
-  if @rating.update(rating_params)
-    puts "Rating successfully updated!" # Add this line for debugging
-    redirect_to @rating.trainer, notice: "Rating updated successfully."
-  else
-    puts @rating.errors.full_messages # Add this line to display any validation errors in the console
-    redirect_to edit_rating_path(@rating), alert: "Failed to update rating."
+  def update
+    @rating = Rating.find(params[:id])
+    if @rating.update(rating_params)
+      puts "Rating successfully updated!" # Add this line for debugging
+      redirect_to @rating.trainer, notice: "Rating updated successfully."
+    else
+      puts @rating.errors.full_messages # Add this line to display any validation errors in the console
+      redirect_to edit_rating_path(@rating), alert: "Failed to update rating."
+    end
   end
-end
-
 
   def show
     @rating = Rating.find(params[:id])
     @trainer = @rating.trainer
     @client = @rating.client
-
     @ratings = @trainer.ratings
-    # Add any additional code related to displaying individual rating details
   end
 
   private

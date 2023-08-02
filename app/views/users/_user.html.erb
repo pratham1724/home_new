@@ -1,0 +1,15 @@
+<%
+=begin%>
+ <div>
+  <%= link_to user.email, user %>
+</div> 
+<%
+=end%>
+
+
+<% @trainers = Trainer.all %>
+<div>
+  <% @trainers.each do |t| %>
+    <%= link_to t.name, trainer_path(t.id) %>
+  <% end %>
+</div>

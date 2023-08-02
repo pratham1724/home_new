@@ -3,7 +3,7 @@ class HomesController < ApplicationController
     if user_signed_in?
       if current_user.client?
         if current_user.client.present?
-          redirect_to trainers_path
+          redirect_to client_path(current_user)
         else
           redirect_to new_client_path
         end

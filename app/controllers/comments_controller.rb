@@ -1,26 +1,13 @@
 class CommentsController < ApplicationController
-  
-  
-
+  before_action :set_post, only: [:new, :create, :index, :destroy]
+  before_action :set_trainer, only: [:new, :create]
+  load_and_authorize_resource
   def new
-    
-    # @trainer = Trainer.find(params[:user_id])
-    # @post = current_user.trainer.posts.find(params[:trainer_id])
-    @post = Post.find(params[:post_id])
-    # @trainer_1 = @post.trainer_id
-    # @trainer = Trainer.find(@trainer_1)
-    @trainer = Trainer.find( @post.trainer_id )
-    @comment = @post.comments.build
+    @comment = @post.comments.new()
   end
   
-  
   def create
-    # @trainer = current_user.trainer.find(params[:user_id])
-    # @post = current_user.trainer.posts.find(params[:trainer_id])
-    @post = Post.find(params[:post_id])
-    @trainer_1 = @post.trainer_id
-    @trainer = Trainer.find(@trainer_1)
-    @comment = @post.comments.new(comment_params)
+    @comment = @post.comments.new(comment_params.merge(commenter: current_user.client.name))
     if @comment.save 
       redirect_to trainer_post_path(@trainer, @post.id)
     else 
@@ -29,23 +16,16 @@ class CommentsController < ApplicationController
   end
 
   def index
-
-    @post = Post.find(params[:post_id])
     if current_user.role == "client"
-      @trainer_1 = @post.trainer_id
-      @trainer = Trainer.find(@trainer_1)
+      @trainer = Trainer.find(@post.trainer_id)
     else
       @trainer = current_user.trainer
     end
-
-    # @comment_1 = @post.comments.build
-    # @comment = Comments.all
     @comment = @post.comments
   end
 
   
   def destroy
-    @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
 
     if @comment.destroy
@@ -59,4 +39,13 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:commenter, :comment)
     end
+
+    def set_post
+      @post = Post.find(params[:post_id])
+    end
+    
+    def set_trainer
+      @trainer = Trainer.find(@post.trainer_id)
+    end
+
 end
