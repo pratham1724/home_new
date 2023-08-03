@@ -4,7 +4,9 @@ class User < ApplicationRecord
   scope :all_except, ->(user) { where.not(id: user) }
   after_create_commit { broadcast_append_to "users" }
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :confirmable
+         
   enum role: {client: 0, trainer: 1}
 
   has_one :trainer, dependent: :destroy
