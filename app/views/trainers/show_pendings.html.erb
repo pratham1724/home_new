@@ -7,6 +7,8 @@
         </div>
         <hr>
     <% end %>
+    <%= link_to 'Back to Profile', trainer_path(@trainer) %>
 <% else %>
     <h1>NO Pending Appointments</h1>
+    <%= link_to 'Back to Profile', trainer_path(@trainer) %>
 <% end %>

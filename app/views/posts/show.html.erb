@@ -6,7 +6,7 @@
 }
 </style>
 
-<% if @post.size == 0 %>  
+<% if @posts.size == 0 %>  
   <% if current_user.role == "trainer" %>
     <p>Please create your first post</p><br><%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
     <%= link_to 'Back to Profile', trainer_path(@trainer) %>
@@ -19,7 +19,7 @@
   <ul>
   <% if current_user.role == "trainer" %>
   <div>
-    <% @post.each do |post| %>
+    <% @posts.each do |post| %>
       <li><p>Title: <%= post.title %></p></il>
       <% if post.images.attached? %>
         <% post.images.each do |i| %>
@@ -41,7 +41,7 @@
     <%= link_to 'Back to Profile', trainer_path(@trainer.id) %>
     </div>
   <% else %>
-    <% @post.each do |post| %>
+    <% @posts.each do |post| %>
       <li><p>Title: <%= post.title %></p></il>
       <% if post.images.attached? %>
         <% post.images.each do |i| %>

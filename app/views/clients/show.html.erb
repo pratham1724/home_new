@@ -1,29 +1,43 @@
-<% if @client.profile.attached? %>
-  <%= image_tag(@client.profile,size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
-<% end %>
+<style>
+  .chat-button{
+    background-color: lightblue;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    border-radius: 10px
+  }
+</style>
 
-<h1><%= @client.name %></h1>
+<div style="margin-left: 2rem ; margin-top: 2rem; width: 100%">
+  <% if @client.profile.attached? %>
+    <%= image_tag(@client.profile,size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
+  <% end %>
 
-<p>Age: <%= @client.age %></p>
-<p>Phone Number: <%= @client.phone_number %></p>
+  <div style="line-height: 10px">
+    <h1><%= @client.name %></h1>
+    <p>Age: <%= @client.age %></p>
+    <p>Phone Number: <%= @client.phone_number %></p>
+  </div>
 
-<% if current_user.trainer? and current_user.trainer.appointments.exists?(client_id: @client.id) %>
-  <% appointment = current_user.trainer.appointments.find_by(client_id: @client.id, trainer_id: current_user.trainer.id) %>
-  <% if appointment.present? %>
-    <% if appointment.confirmed.nil? %>
-      <p>Please wait for the trainer to confirm your appointment.</p>
-    <% elsif appointment.confirmed? and appointment.trainer_id == current_user.trainer.id %>
-      <%= link_to "Chat", client_private_chat_path(@client.id) %>
+  <% if current_user.trainer? and current_user.trainer.appointments.exists?(client_id: @client.id) %>
+    <% appointment = current_user.trainer.appointments.find_by(client_id: @client.id, trainer_id: current_user.trainer.id) %>
+    <% if appointment.present? %>
+      <% if appointment.confirmed.nil? %>
+        <p>Please wait for the trainer to confirm your appointment.</p>
+      <% elsif appointment.confirmed? and appointment.trainer_id == current_user.trainer.id %>
+      <p>Hello <%= current_user.trainer.name %>, drop your message...<%= link_to "Chat", client_private_chat_path(@client.id), class: "chat-button" %></p><br />
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
 
-<% if current_user.role == "client" %>
-  <%= link_to 'Edit Your Profile', edit_client_path(@client) %> <br>
-  <%= link_to 'Visit Our Trainers', trainers_path %> <br>
-  <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
-<% end %>
-<% if current_user.role == "trainer" %>
-  <%= link_to "Back to Feeds", clients_path %><br>
-<% end %>
-
+  <% if current_user.role == "client" %>
+    <%= link_to 'Edit Your Profile', edit_client_path(@client) %> <br>
+    <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
+  <% end %>
+  <% if current_user.role == "trainer" %>
+    <%= link_to "Back to Feeds", clients_path %><br>
+  <% end %>
+</div>

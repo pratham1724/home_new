@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_client, only: [:show]
+  before_action :set_client, only: [:show, :show_trainers]
   load_and_authorize_resource
   
   def index
@@ -36,6 +36,10 @@ class ClientsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def show_trainers
+    @all_trainers = Trainer.includes(appointments: :client).where("appointments.client_id =?", @client.id).references(:client)
   end
 
   def destroy

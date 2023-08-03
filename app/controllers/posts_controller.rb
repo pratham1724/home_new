@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user! #to ensure users are signed in to create posts
-  before_action :set_trainer, only: [:new, :create, :show, :destroy]
+  before_action :set_trainer, only: [:new, :create, :show, :index, :destroy]
   # load_and_authorize_resource
   def new
     if current_user.role == "client"
@@ -20,7 +20,11 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = @trainer.posts.paginate(page: params[:page], per_page: 3)
+    @posts = @trainer.posts.paginate(page: params[:page], per_page: 3)
+  end
+
+  def index
+    @posts = @trainer.posts.all.paginate(page: params[:page], per_page: 3)
   end
 
     def destroy

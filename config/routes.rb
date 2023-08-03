@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'posts/create'
   get 'posts/show'
 
+  get '/clients/:client_id/My_Trainers', to: 'clients#show_trainers', as: "my_trainers"
   get "/client/:client_id", to: "chats#private_chat", as: "client_private_chat"
   get "/trainer/:trainer_id", to: "chats#private_chat", as: "trainer_private_chat"
   devise_for :users

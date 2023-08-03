@@ -1,72 +1,73 @@
+<style>
+  .chat-button{
+    background-color: lightblue;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    border-radius: 10px
+  }
+</style>
+
+
 <% @rate = [] %>
 <% @ratings.each do |r| %> 
   <% @rate << r.value.to_i %>
 <% end %>
 <% @my_rating = @rate.sum/@rate.size.to_f %>
 
-<% if @trainer.profile.attached? %>
-  <%= image_tag(@trainer.profile,size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
-<% end %>
+<div style="margin-left: 2rem ; margin-top: 2rem; width: 100%">
+  <% if @trainer.profile.attached? %>
+    <%= image_tag(@trainer.profile,size: "170x180", style: 'border-radius: 50%;', class: 'css_class') %>
+  <% end %>
 
-<h2>Welcome, I am <%= @trainer.name.capitalize %> </h2>
-
-<p>I am <%= @trainer.age %> years old.</p>
-<p>Here you can contact me:-<br><li><%= @trainer.phone_number %></li><br><li><%= @trainer.user.email %></li></p>
-<p>Rating: <%= @my_rating %><br>
-<% if current_user.role == "trainer" %>
-  <%= link_to 'Edit Your Profile', edit_trainer_path(@trainer) %> <br>
-<% end %>
-<%= link_to 'My Posts', trainer_post_path(@trainer) %><br>
-
-<% if current_user.role == "client" %>
-  <div class="stick">
-    <%= link_to "Back to Feeds", trainers_path %><br>
+  <h2 style="font-weight: bold">Welcome, I am <%= @trainer.name.capitalize %> </h2>
+  <div style="line-height: 10px">
+    <p>I am <%= @trainer.age %> years old.</p>
+    <p>Training Type: <%= @trainer.training_type %></p>
+    <p>Here you can contact me:-<br><li><%= @trainer.phone_number %></li><br><li><%= @trainer.user.email %></li></p>
   </div>
-<% else %>
-  <%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
-  <%= link_to "My Clients", my_clients_path(@trainer)%><br>
-  <%= link_to "View All Clients Available", clients_path %><br>
-  <%= link_to "Pending Appointments", pending_appointments_path(@trainer)%>
-  <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
-<% end %>
 
-<% if current_user.client? %>
-  <% unless current_user.client.ratings.exists?(trainer_id: @trainer.id) %>
-    <%= form_with model: Rating.new, url: trainer_ratings_path(@trainer) do |form| %>
-      <%= form.hidden_field :trainer_id, value: @trainer.id %>
-      <label for="rating_value">Rate Trainer (0 to 5):</label>
-      <%= form.select :value, (0..5).to_a, prompt: "Select rating" %>
-      <%= form.submit "Submit Rating" %>
-    <% end %>
-  <% else %>
-    <% rating = current_user.client.ratings.find_by(trainer_id: @trainer.id) %>
-    <%= link_to "Update Rating", edit_trainer_rating_path(@trainer.id,rating.id), method: :put %>
-  <% end %>
-
-  <% unless current_user.client.appointments.exists?(trainer_id: @trainer.id) %>
-    <%= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
-  <% else %>
-    <% appointment = current_user.client.appointments.find_by(trainer_id: @trainer.id, client_id: current_user.client.id) %>
-    <% if appointment.present? %>
-      <% if appointment.confirmed.nil? %>
-        <p>Please wait for the trainer to confirm your appointment.</p>
-      <% elsif appointment.confirmed? and appointment.client_id == current_user.client.id %>
-        <%= link_to "Chat", trainer_private_chat_path(@trainer) %>
+  <% if current_user.client? %>
+    <% unless current_user.client.appointments.exists?(trainer_id: @trainer.id) %>
+      <%= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
+    <% else %>
+      <% appointment = current_user.client.appointments.find_by(trainer_id: @trainer.id, client_id: current_user.client.id) %>
+      <% if appointment.present? %>
+        <% if appointment.confirmed.nil? %>
+          <p>Please wait for the trainer to confirm your appointment.</p>
+        <% elsif appointment.confirmed? and appointment.client_id == current_user.client.id %>
+          <p>Hello <%= current_user.client.name %>, drop your message here...<%= link_to "Chat", trainer_private_chat_path(@trainer), class: "chat-button" %><p>
+          
+        <% end %>
       <% end %>
     <% end %>
   <% end %>
-<% end %>
 
- <% if current_user.present? %>
-  <% if current_user.trainer? %>
-    <% @trainer.appointments.each do |appointment| %>
-      <% unless appointment.confirmed? %>
-        <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %><br>
-        <%= link_to "Reject Appointment", reject_appointment_path(appointment) %>
-      <%# else %>
-        <%#= link_to "Chat", rooms_path %>
+  <p style="font-weight: bold; margin-top: 20px">Rating: <%= @my_rating %><br>
+  <% if current_user.role == "trainer" %>
+    <%= link_to 'Edit Your Profile', edit_trainer_path(@trainer) %> <br>
+    <%= link_to "My Clients", my_clients_path(@trainer)%><br>
+    <%= link_to "View All Clients Available", clients_path %><br>
+    <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
+  <% else %>
+    <%= link_to 'My Posts', trainer_post_path(@trainer) %><br>
+    <% unless current_user.client.ratings.exists?(trainer_id: @trainer.id) %>
+      <%= form_with model: Rating.new, url: trainer_ratings_path(@trainer) do |form| %>
+        <%= form.hidden_field :trainer_id, value: @trainer.id %>
+        <label for="rating_value">Rate Trainer (0 to 5):</label>
+        <%= form.select :value, (0..5).to_a, prompt: "Select rating" %>
+        <%= form.submit "Submit Rating" %>
       <% end %>
+    <% else %>
+      <% rating = current_user.client.ratings.find_by(trainer_id: @trainer.id) %>
+      <%= link_to "Update Rating", edit_trainer_rating_path(@trainer.id,rating.id), method: :put %>
     <% end %>
+    <div class="stick">
+      <%= link_to "Back to Feeds", trainers_path %><br>
+    </div>
   <% end %>
-<% end %> 
+</div>
 

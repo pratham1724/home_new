@@ -1,0 +1,23 @@
+<% if @posts.size == 0 %>  
+    <p>Please create your first post</p><br><%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
+    <%= link_to 'Back to Profile', trainer_path(@trainer) %>
+<% else %>
+    <div>
+    <% @posts.each do |post| %>
+    <li><p>Title: <%= post.title %></p></il>
+    <% if post.images.attached? %>
+        <% post.images.each do |i| %>
+        
+        <%= image_tag(i, size: "300x310", style: 'border-radius: 20%;') %>
+        <% end %>
+    <% end %>
+    <li><p>Content: <%= post.content %></p></li><br>
+    <li><%= link_to "Destroy", trainer_post_path(@trainer.id,post.id), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                } %></li>
+    <%= link_to "comments", trainer_post_comments_path( @trainer.id, post.id  ) %>
+    <hr>
+    <% end %>
+    </div>
+<% end %>

@@ -1,0 +1,10 @@
+<ul>
+<div>
+  <% @all_trainers.each do |t| %>
+
+    <li><p>Name: <%= link_to t.name, trainer_path(t) %></p></li><br>
+  <% end %>
+</div>
+</ul>
+
+<%= link_to 'Back to Profile', client_path(@client.id) %>
