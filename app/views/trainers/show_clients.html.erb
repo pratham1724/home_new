@@ -2,7 +2,7 @@
 <div>
   <% @all_clients.each do |c| %>
 
-    <li><p>Name: <%= c.name %></p></li><br>
+    <li><p>Name: <%= link_to c.name, client_path(c) %></p></li><br>
   <% end %>
 </div>
 </ul>

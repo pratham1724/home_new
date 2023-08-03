@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 resources :clients
 # resources :trainers
 resources :trainers do
-  resources :appointments, only: [:new, :create]
+  resources :appointments
   resources :ratings
   resources :posts do
     resources :comments
@@ -50,7 +50,7 @@ end
       delete :cancel
     end
   end
-
+  get '/trainers/:trainer_id/Pending_Appointments', to: 'trainers#show_pendings', as: "pending_appointments"
   get '/trainers/:trainer_id/My_Clients', to: 'trainers#show_clients', as: "my_clients"
   delete '/trainers/sign_out', to: 'devise/sessions#destroy', as: :trainers_sign_out
   
