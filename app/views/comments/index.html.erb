@@ -25,16 +25,13 @@
     <% @comment.each do |comment| %>
       <li><p>Commenter: <%= comment.commenter %></p></il>
       <li><p>Comment: <%= comment.comment %></p></li>
+      <% if (current_user.client? && comment.commenter == current_user.client.name) or current_user.trainer? %>
       <li><%= link_to "Destroy", trainer_post_comment_path(@trainer.id,@post.id,comment.id), data: {
                     turbo_method: :delete,
                     turbo_confirm: "Are you sure?"
                   } %></li><hr>
-      
-    <!-- Add other attributes specific to Trainer model -->
-    <%# end %>
-    <%#= link_to 'Back to Post', trainer_post_path(@comment.post.trainer, @comment.post.id) %>
-  
-  <% end %>
+      <% end %>
+    <% end %>
   <div>
   <%= link_to 'Back to Post', trainer_post_path(@trainer,@post) %>
   </div>

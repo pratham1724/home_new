@@ -26,6 +26,7 @@
   <%= link_to "Create New Post", new_trainer_post_path(@trainer) %><br>
   <%= link_to "My Clients", my_clients_path(@trainer)%><br>
   <%= link_to "View All Clients Available", clients_path %><br>
+  <%= link_to "Pending Appointments", pending_appointments_path(@trainer)%>
   <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
 <% end %>
 
@@ -45,26 +46,27 @@
   <% unless current_user.client.appointments.exists?(trainer_id: @trainer.id) %>
     <%= link_to "Schedule Appointment", new_trainer_appointment_path(@trainer) %>
   <% else %>
-    <% appointment = current_user.client.appointments.find_by(trainer_id: @trainer.id) %>
+    <% appointment = current_user.client.appointments.find_by(trainer_id: @trainer.id, client_id: current_user.client.id) %>
     <% if appointment.present? %>
       <% if appointment.confirmed.nil? %>
         <p>Please wait for the trainer to confirm your appointment.</p>
-      <% elsif appointment.confirmed? %>
-        <%= link_to "Chat", rooms_path %>
+      <% elsif appointment.confirmed? and appointment.client_id == current_user.client.id %>
+        <%= link_to "Chat", trainer_private_chat_path(@trainer) %>
       <% end %>
     <% end %>
   <% end %>
 <% end %>
 
-<% if current_user.present? %>
+ <% if current_user.present? %>
   <% if current_user.trainer? %>
     <% @trainer.appointments.each do |appointment| %>
       <% unless appointment.confirmed? %>
         <%= link_to "Confirm Appointment", confirm_appointment_path(appointment) %><br>
         <%= link_to "Reject Appointment", reject_appointment_path(appointment) %>
-      <% else %>
-        <%= link_to "Chat", rooms_path %>
+      <%# else %>
+        <%#= link_to "Chat", rooms_path %>
       <% end %>
     <% end %>
   <% end %>
-<% end %>
+<% end %> 
+

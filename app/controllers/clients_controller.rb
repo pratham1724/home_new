@@ -50,6 +50,7 @@ class ClientsController < ApplicationController
   def set_client
     if current_user.client?
       @client = current_user.client
+      
     else
       @client = Client.find(params[:id])
     end

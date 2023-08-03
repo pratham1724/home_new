@@ -9,3 +9,4 @@ class Client < ApplicationRecord
   validates :phone_number, numericality: true, length: { is: 10, messages: "phone number must contain 10 digits" }
   validates :age, numericality: true
 end
+

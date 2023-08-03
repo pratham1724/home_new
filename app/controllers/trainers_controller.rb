@@ -1,6 +1,6 @@
 class TrainersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_trainer, only: [:show]
+  before_action :set_trainer, only: [:show, :show_pendings]
   load_and_authorize_resource
 
   def index
@@ -30,6 +30,10 @@ class TrainersController < ApplicationController
   def show_clients
     @trainer = current_user.trainer
     @all_clients = Client.includes(appointments: :trainer).where("appointments.trainer_id =?", @trainer.id).references(:trainer)
+  end
+
+  def show_pendings
+    @appointments = Appointment.where('trainer_id = ?', @trainer.id).where(appointments: {confirmed: nil})
   end
   
   def edit

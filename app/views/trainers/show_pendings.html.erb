@@ -1,0 +1,12 @@
+<% if @appointments.any? %>
+    <% @appointments.each do |a| %>
+        <div>
+        <p>Name: <%= link_to Client.find(a.client_id).name, client_path(Client.find(a.client_id)) %></p>
+        <%= link_to "Confirm Appointment", confirm_appointment_path(a) %><pre> or </pre> 
+        <%= link_to "Reject Appointment", reject_appointment_path(a), method: :delete %>
+        </div>
+        <hr>
+    <% end %>
+<% else %>
+    <h1>NO Pending Appointments</h1>
+<% end %>

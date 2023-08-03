@@ -60,6 +60,14 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'dotenv-rails'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rails-controller-testing'
+  gem 'shoulda', '~> 4.0'
+  gem 'shoulda-matchers', '~> 4.0'
+  gem 'shoulda-callback-matchers',    '~> 1.1', '>= 1.1.3'
+  gem 'simplecov',                    '~> 0.15.1',              require: false
 end
 
 group :development do
@@ -91,3 +99,5 @@ gem "will_paginate"
 gem "kaminari"
 
 gem "cancancan", "~> 3.5"
+
+gem "activeadmin", "~> 3.0"
