@@ -101,3 +101,5 @@ gem "kaminari"
 gem "cancancan", "~> 3.5"
 
 gem "activeadmin", "~> 3.0"
+
+# test comment
