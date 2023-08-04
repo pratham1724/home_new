@@ -24,8 +24,10 @@
 
   <body>
     <% if user_signed_in? %>
+      <% if current_user.client or current_user.trainer  %>
+       <%= render "layouts/navbartrainer" %>
     <%#= link_to "chats", rooms_path %>
-      <%= render "layouts/navbartrainer" %>
+    <% end %>
     <% end %>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>

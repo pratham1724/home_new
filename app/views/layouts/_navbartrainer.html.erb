@@ -61,17 +61,18 @@
  
     </style>
     <nav>
+    <%# if current_user.client or current_user.trainer %>
         <% if current_user.role == "client" %>
             <a class="links">
             <%= link_to "HOME", client_path(current_user), {:style=>'color:#FFFFFF;', :class => "css_class"} %>
             </a>  
             
             <a class="links">
-            <%= link_to "My Trainers", my_trainers_path(current_user.client), {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+            <%#= link_to "My Trainers", my_trainers_path(current_user.client), {:style=>'color:#FFFFFF;', :class => "css_class"} %>
             </a>
 
             <a class="links">
-            <%= link_to "All Trainers", trainers_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+            <%#= link_to "All Trainers", trainers_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %>
             </a>
 
             <div class="dropdown-menu">
@@ -84,15 +85,15 @@
             </a>
 
             <a class="links">
-            <%= link_to 'My Posts', trainer_posts_path(current_user.trainer) %>
+            <%#= link_to 'My Posts', trainer_posts_path(current_user.trainer) %>
             </a>
 
             <a class="links">
-            <%= link_to "CREATE POST", new_trainer_post_path(current_user.trainer), {:style=>'color:#FFFFFF;', :class => "css_class"} %>
+            <%#= link_to "CREATE POST", new_trainer_post_path(current_user.trainer), {:style=>'color:#FFFFFF;', :class => "css_class"} %>
             </a>
 
             <a class="links">
-            <%= link_to "Pending Appointments", pending_appointments_path(current_user.trainer)%>
+            <%#= link_to "Pending Appointments", pending_appointments_path(current_user.trainer)%>
             </a>
             
             <div class="dropdown-menu">
@@ -100,4 +101,5 @@
                 :data => { :no_turbolink => true} %>
             </div>
         <% end %>
+        <%# end %>
     </nav>

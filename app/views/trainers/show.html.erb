@@ -49,6 +49,9 @@
   <p style="font-weight: bold; margin-top: 20px">Rating: <%= @my_rating %><br>
   <% if current_user.role == "trainer" %>
     <%= link_to 'Edit Your Profile', edit_trainer_path(@trainer) %> <br>
+    <%= link_to "Pending Appointments", pending_appointments_path(@trainer)%><br>
+    <%= link_to 'My Posts', trainer_posts_path(@trainer) %><br>
+    <%= link_to "CREATE POST", new_trainer_post_path(@trainer) %><br>
     <%= link_to "My Clients", my_clients_path(@trainer)%><br>
     <%= link_to "View All Clients Available", clients_path %><br>
     <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>

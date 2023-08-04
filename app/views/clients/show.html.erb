@@ -35,6 +35,8 @@
 
   <% if current_user.role == "client" %>
     <%= link_to 'Edit Your Profile', edit_client_path(@client) %> <br>
+    <%= link_to "My Trainers", my_trainers_path(@client) %> <br>
+    <%= link_to "All Trainers", trainers_path %>
     <%= button_to "Log Out", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure you want to log out?" } %>
   <% end %>
   <% if current_user.role == "trainer" %>
