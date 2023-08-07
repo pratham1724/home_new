@@ -56,19 +56,19 @@ Where a user wlll have 2 roles ( "Trainer", "Client" ).
 
   Gem Used
 
-Letter Opener - to see all the mails.
-Devise - to handel authentication.
-wil_paginate - to divide the content in multiple pages.
-redis - for chat functionality.
-byebug - to resolve bugs.
-cancancan - for authorization.
-image_processing - for resizig images.
-active_storage - for uploading photos.
-bourbon - for design.
-bitters - for design.
-sassc - to use of the original Ruby Sass library.
+1) Letter Opener - to see all the mails.
+2) Devise - to handel authentication.
+3) wil_paginate - to divide the content in multiple pages.
+4) redis - for chat functionality.
+5) byebug - to resolve bugs.
+6) cancancan - for authorization.
+7) image_processing - for resizig images.
+8) active_storage - for uploading photos.
+9) bourbon - for design.
+10) bitters - for design.
+11) sassc - to use of the original Ruby Sass library.
 
-  Before running project do this necessary commends.
+- Before running project do this necessary commends.
 
 1) bundle install - to install all the gems.
 
